@@ -39,10 +39,8 @@ public class BombBehavior : MonoBehaviour {
         Instantiate(booom,this.transform.position, Quaternion.identity);
 		foesHit = Physics2D.CircleCastAll (this.transform.position, 1.0f, new Vector2(1,1), 1.0f);
 		for (int i = 0; i < foesHit.Length; ++i) {
-		//	
-			if (foesHit [i].collider != null && foesHit[i].collider.name != "Player") {
-				Debug.Log (foesHit [i].collider.name);
-				foesHit [i].collider.gameObject.GetComponent<Foe>().Damage (1);
+			if (foesHit [i].collider.tag == "Foe") {
+				foesHit [i].collider.gameObject.GetComponent<Foe> ().Damage (1);
                 playerStatus.boomPower++;
 			}
 		}

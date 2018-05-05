@@ -28,7 +28,8 @@ public class EnemySpawn : MonoBehaviour {
 	void Spawn () {
 		float distance = Mathf.Abs (player.transform.position.x - this.transform.position.x);
 		if (distance > 5.2f && distance < 25.0f) {
-			if ((++spawned % 4) == 0) {
+			// if ((++spawned % 4) == 0) {
+			if (true) {
 				Instantiate (enemyB, this.transform.position, Quaternion.identity); 
 
 			} else {
