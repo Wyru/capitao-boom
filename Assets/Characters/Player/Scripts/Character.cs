@@ -7,6 +7,9 @@ public class Character : MonoBehaviour {
     public int maxLife;
     public int life;
 
+    public int maxBoomPower;
+    public int boomPower;
+
     public int speed;
     public GameLoop gameLoop;
     public int groundIndex = 0;
@@ -35,6 +38,24 @@ public class Character : MonoBehaviour {
     public bool charging = false;
     public bool verticalMoving;
 	public bool isTakingDamage;
+
+
+
+    //sounds
+    public AudioClip damage;
+    public AudioClip death;
+
+    public AudioClip thrownSound;
+    public AudioClip trownBomps1;
+    public AudioClip trownBomps2;
+
+    public AudioClip randomQuote;
+
+
+    public AudioSource audioSource;
+
+
+
     // Use this for initialization
     void Start() {
 
@@ -49,6 +70,7 @@ public class Character : MonoBehaviour {
         this.bombsLeft = this.maxBombs;
 
 		this.isTakingDamage = false;
+        this.audioSource = this.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -138,7 +160,9 @@ public class Character : MonoBehaviour {
 
         StopCoroutine("ChargingAttack");
 
-		if (bombsLeft > 0) {
+        PlayThrowBombSound();
+
+        if (bombsLeft > 0) {
 			this.animator.SetTrigger("attack");
 			Rigidbody2D projectile = bombPrefab.GetComponent<Rigidbody2D> ();
 			Rigidbody2D clone;
@@ -155,9 +179,9 @@ public class Character : MonoBehaviour {
     }
 
 	public void takeDamage (int damage) {
-		this.Damage (damage);
+        this.animator.SetTrigger("damage");
+        this.Damage (damage);
 	}
-
 
     private void Damage(int damage) {
 		if (isTakingDamage == false && this.life > 0) {
@@ -170,7 +194,9 @@ public class Character : MonoBehaviour {
     }
 
 	private void Die () {
-		Destroy(this.gameObject);
+        this.animator.SetBool("death", true);
+        this.PlayDeathSound();
+        Destroy(this);
 	}
 
 	IEnumerator Flash ()
@@ -190,5 +216,31 @@ public class Character : MonoBehaviour {
 		this.BC2d.enabled = true;
 		isTakingDamage = false;
 	}
+
+
+    public void PlayHitSound() {
+        audioSource.clip = damage;
+        this.audioSource.Play();
+    }
+
+    public void PlayThrowBombSound() {
+        audioSource.clip = thrownSound;
+        this.audioSource.Play();
+
+        if (Random.value <.4) {
+            if (Random.value > .2) 
+                audioSource.clip = trownBomps1;
+            else
+                audioSource.clip = trownBomps2;
+
+            this.audioSource.Play();
+        }
+    }
+
+    public void PlayDeathSound() {
+        audioSource.clip = death;
+        this.audioSource.Play();
+    }
+
 }
 

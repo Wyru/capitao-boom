@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 50638633074651680}
   - component: {fileID: 61050734167547238}
   - component: {fileID: 114914709860800574}
+  - component: {fileID: 95279658857085974}
   m_Layer: 0
   m_Name: Foe
   m_TagString: Foe
@@ -77,8 +78,8 @@ BoxCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0.86837673, y: 0.3034947}
   m_SpriteTilingProperty:
-    border: {x: 0.87, y: 1.4699999, z: 2.24, w: 1.24}
-    pivot: {x: 0.3752318, y: 0.4797673}
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 15, y: 15}
     newSize: {x: 15, y: 15}
     adaptiveTilingThreshold: 0.5
@@ -88,6 +89,24 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 10.586176, y: 12.324965}
   m_EdgeRadius: 0
+--- !u!95 &95279658857085974
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1560400967354896}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 03dcd399ff928034a97ad34cf6eb1ea5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114914709860800574
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -146,9 +165,9 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 1519a926e4617564389f4ca6bc58aec1, type: 3}
-  m_Color: {r: 0.2569139, g: 1, b: 0, a: 1}
-  m_FlipX: 0
+  m_Sprite: {fileID: 21300000, guid: 61e7eba0f91e14349a08382259f0f0c3, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 15, y: 15}
