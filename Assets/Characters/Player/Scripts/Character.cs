@@ -51,6 +51,7 @@ public class Character : MonoBehaviour {
 
     public AudioClip randomQuote;
 
+    public AudioClip ultimateBomb;
 
     public AudioSource audioSource;
 
@@ -141,6 +142,15 @@ public class Character : MonoBehaviour {
         this.charging = true;
         StartCoroutine("ChargingAttack");
     }
+    public void BeginChargeUltimateAttack() {
+        if (boomPower >= maxBombs) {
+            this.charging = true;
+            StartCoroutine("ChargingAttack");
+        }
+        else
+            Debug.Log("sem energia");
+        
+    }
 
     IEnumerator ChargingAttack() {
         attackDistance = minAttackDistance;
@@ -154,6 +164,7 @@ public class Character : MonoBehaviour {
             yield return new WaitForSeconds(.1f);
         }
     }
+
 
     public void Attack() {
         this.charging = false;
@@ -175,7 +186,24 @@ public class Character : MonoBehaviour {
     }
 
     public void Super() {
-        this.animator.SetTrigger("super");
+        if (boomPower >= maxBombs) {
+            PlaySuperSound();
+            this.charging = false;
+            StopCoroutine("ChargingAttack");
+            this.animator.SetTrigger("super");
+            Rigidbody2D projectile = superBombPrefab.GetComponent<Rigidbody2D>();
+            Rigidbody2D clone;
+            bombsLeft--;
+            clone = Instantiate(projectile, this.transform.position, Quaternion.identity) as Rigidbody2D;
+            clone.GetComponent<UltimateBombBehavior>().minY = this.transform.position.y - 1;
+            clone.GetComponent<UltimateBombBehavior>().playerStatus = this;
+            clone.velocity = transform.TransformDirection((Vector2.right + (2 * Vector2.up)) * attackDistance);
+            boomPower = 0;
+
+
+        }
+
+
     }
 
 	public void takeDamage (int damage) {
@@ -239,6 +267,11 @@ public class Character : MonoBehaviour {
 
     public void PlayDeathSound() {
         audioSource.clip = death;
+        this.audioSource.Play();
+    }
+
+    public void PlaySuperSound() {
+        audioSource.clip = ultimateBomb;
         this.audioSource.Play();
     }
 

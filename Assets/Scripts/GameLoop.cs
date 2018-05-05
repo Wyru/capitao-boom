@@ -21,6 +21,8 @@ public class GameLoop : MonoBehaviour {
     public GameObject ThrowPowerHUD;
     public RectTransform powerThrowRender;
 
+    public Image boomPowerMeter;
+
     void Start() {
 		player = GameObject.FindWithTag ("Player").GetComponent<Character>();
 		lifePanel = GameObject.FindWithTag ("HUD");
@@ -35,6 +37,7 @@ public class GameLoop : MonoBehaviour {
         UpdateLifeHUD();
         UpdateBombHUD();
         UpdateThrowBombHUD();
+        UpdateBoomPowerHUD();
     }
 
 
@@ -73,6 +76,11 @@ public class GameLoop : MonoBehaviour {
             ThrowPowerHUD.SetActive(false);
         }
         
+    }
+
+    private void UpdateBoomPowerHUD() {
+        float fill = (float)player.boomPower / (float)player.maxBoomPower;
+        boomPowerMeter.fillAmount = fill;
     }
 
 

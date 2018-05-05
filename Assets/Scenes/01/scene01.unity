@@ -212,15 +212,15 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 118632392}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1.432}
+  m_LocalScale: {x: 0.5679995, y: 0.56799924, z: 0.56799924}
   m_Children: []
   m_Father: {fileID: 2123637599}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -11.9, y: 9.22}
+  m_AnchoredPosition: {x: -17.51, y: 9.23}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &118632394
@@ -352,76 +352,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
---- !u!1 &247822440
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 247822441}
-  m_Layer: 0
-  m_Name: BoomPower
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &247822441
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 247822440}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 2123637599}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &528792215
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4831385086281108, guid: 223a736a5a9c04a4eae6636dfcbc7bae, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 7.7811522
-      objectReference: {fileID: 0}
-    - target: {fileID: 4831385086281108, guid: 223a736a5a9c04a4eae6636dfcbc7bae, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: -2.6100001
-      objectReference: {fileID: 0}
-    - target: {fileID: 4831385086281108, guid: 223a736a5a9c04a4eae6636dfcbc7bae, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: -9.046875
-      objectReference: {fileID: 0}
-    - target: {fileID: 4831385086281108, guid: 223a736a5a9c04a4eae6636dfcbc7bae, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4831385086281108, guid: 223a736a5a9c04a4eae6636dfcbc7bae, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4831385086281108, guid: 223a736a5a9c04a4eae6636dfcbc7bae, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4831385086281108, guid: 223a736a5a9c04a4eae6636dfcbc7bae, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4831385086281108, guid: 223a736a5a9c04a4eae6636dfcbc7bae, type: 2}
-      propertyPath: m_RootOrder
-      value: 9
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 223a736a5a9c04a4eae6636dfcbc7bae, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &602015505
 GameObject:
   m_ObjectHideFlags: 0
@@ -462,13 +392,13 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 388ccdeda9b08c34ab0ba3a3d9175c8b, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.41
   m_Pitch: 1
   Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 189
+  Priority: 237
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -623,8 +553,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9097202697ade264db918d95612a0a26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxLife: 3
+  maxLife: 4
   life: 0
+  maxBoomPower: 20
+  boomPower: 0
   speed: 20
   gameLoop: {fileID: 1779283084}
   groundIndex: 0
@@ -635,7 +567,8 @@ MonoBehaviour:
   maxAttackDistance: 16
   timeToBombExplode: 2
   bombPrefab: {fileID: 1196011340018658, guid: 755bb3414b4fefb4281bf1d61837ffb1, type: 2}
-  superBombPrefab: {fileID: 0}
+  superBombPrefab: {fileID: 1309385720980374, guid: 584d0a9afb7e49f4c8fef14ca7cd3ff9,
+    type: 2}
   maxBombs: 5
   bombsLeft: 0
   charging: 0
@@ -647,6 +580,7 @@ MonoBehaviour:
   trownBomps1: {fileID: 8300000, guid: 600b6a58170fab5468dfd3bf37b223a3, type: 3}
   trownBomps2: {fileID: 8300000, guid: 19244c23564573e48831b823bb6a3be8, type: 3}
   randomQuote: {fileID: 8300000, guid: 5b5c43f9f4bdfe34e8d14dd3b78ceb47, type: 3}
+  ultimateBomb: {fileID: 0}
   audioSource: {fileID: 0}
 --- !u!212 &615937444
 SpriteRenderer:
@@ -819,6 +753,74 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &632979482
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 632979485}
+  - component: {fileID: 632979484}
+  - component: {fileID: 632979483}
+  m_Layer: 0
+  m_Name: Color Boom Power
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &632979483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 632979482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 21300000, guid: bcae1566f18f4bc46ae652d54ac0e3ad, type: 3}
+  m_Type: 3
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 0
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+--- !u!222 &632979484
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 632979482}
+--- !u!224 &632979485
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 632979482}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.9998, y: 0.99980044, z: 0.99980044}
+  m_Children: []
+  m_Father: {fileID: 1476214493}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &736751829
 GameObject:
   m_ObjectHideFlags: 0
@@ -1409,6 +1411,75 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1476214492
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1476214493}
+  - component: {fileID: 1476214495}
+  - component: {fileID: 1476214494}
+  m_Layer: 0
+  m_Name: Gray Boom Power
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1476214493
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1476214492}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1.69}
+  m_LocalScale: {x: 0.045624547, y: 0.04562453, z: 0.04562453}
+  m_Children:
+  - {fileID: 632979485}
+  m_Father: {fileID: 2123637599}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 1.91, y: 8.22}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1476214494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1476214492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.5943396, g: 0.5943396, b: 0.5943396, a: 0.42745098}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 21300000, guid: bcae1566f18f4bc46ae652d54ac0e3ad, type: 3}
+  m_Type: 3
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 3
+  m_FillAmount: 1
+  m_FillClockwise: 0
+  m_FillOrigin: 0
+--- !u!222 &1476214495
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1476214492}
 --- !u!1 &1518355018
 GameObject:
   m_ObjectHideFlags: 0
@@ -1696,6 +1767,7 @@ MonoBehaviour:
   hudLife: 0
   ThrowPowerHUD: {fileID: 1403731474}
   powerThrowRender: {fileID: 995271399}
+  boomPowerMeter: {fileID: 632979483}
 --- !u!1 &1836931562
 GameObject:
   m_ObjectHideFlags: 0
@@ -2162,8 +2234,8 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2011936204}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 18.167}
-  m_LocalScale: {x: 0.1407097, y: 0.1407097, z: 0.1407097}
+  m_LocalPosition: {x: 0, y: 0, z: 18.517}
+  m_LocalScale: {x: 0.12414746, y: 0.12414746, z: 0.12414746}
   m_Children:
   - {fileID: 1725688152}
   - {fileID: 1583071360}
@@ -2175,7 +2247,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 12.366, y: 8.86}
+  m_AnchoredPosition: {x: 13.3, y: 9.45}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2011936206
@@ -2261,7 +2333,7 @@ Transform:
   - {fileID: 118632393}
   - {fileID: 2011936205}
   - {fileID: 1403731475}
-  - {fileID: 247822441}
+  - {fileID: 1476214493}
   m_Father: {fileID: 1456792145}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
