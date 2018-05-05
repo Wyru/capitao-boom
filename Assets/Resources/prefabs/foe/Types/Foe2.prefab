@@ -50,7 +50,7 @@ Rigidbody2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1822758183078580}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -62,7 +62,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &61293876226383992
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -100,6 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerStatus: {fileID: 0}
+  munition: {fileID: 0}
   maxLife: 5
   life: 5
   MoveSpeed: 3
@@ -107,10 +108,9 @@ MonoBehaviour:
   isReceivingDamage: 0
   speed: 3
   groundIndex: 0
-  enemyType: 0
+  enemyType: 1
   verticalUpdateDistance: 0.5
   time: 0
-  timer: {fileID: 0}
 --- !u!212 &212315135002411686
 SpriteRenderer:
   m_ObjectHideFlags: 1

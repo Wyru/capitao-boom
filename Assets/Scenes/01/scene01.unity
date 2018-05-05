@@ -164,12 +164,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: b0dac203b7cb64149aa9e09509ad5abf, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a295e0978ddd53e4881d647f10ae9e51, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
-  m_Size: {x: 155.93967, y: 33.4}
+  m_Size: {x: 106.58, y: 33.4}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -404,7 +404,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.119616985, y: 0.26198947}
   m_SpriteTilingProperty:
     border: {x: 0.87, y: 1.4699999, z: 2.24, w: 1.24}
     pivot: {x: 0.3752318, y: 0.4797673}
@@ -415,7 +415,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 7.8582735, y: 6.55249}
   m_EdgeRadius: 0
 --- !u!114 &615937443
 MonoBehaviour:
@@ -1051,7 +1051,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90396a6a7e8064d49abb6c64a0dc96c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemies: []
+  player: {fileID: 0}
+  enemyA: {fileID: 0}
+  enemyB: {fileID: 0}
   spawnTime: 3
 --- !u!212 &1465661887
 SpriteRenderer:

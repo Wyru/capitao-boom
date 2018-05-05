@@ -38,10 +38,9 @@ public class BombBehavior : MonoBehaviour {
         Destroy(this.gameObject);
 		foesHit = Physics2D.CircleCastAll (this.transform.position, 2.0f, new Vector2(1,1), 2.0f);
 		for (int i = 0; i < foesHit.Length; ++i) {
-		//	
-			if (foesHit [i].collider != null && foesHit[i].collider.name != "Player") {
-				Debug.Log (foesHit [i].collider.name);
-				foesHit [i].collider.gameObject.GetComponent<Foe>().Damage (1);
+			if (foesHit [i].collider.tag == "Foe") {
+				// Debug.Log (foesHit [i].collider.name);
+				foesHit [i].collider.gameObject.GetComponent<Foe> ().Damage (1);
 			}
 		}
 		playerStatus.bombsLeft++;

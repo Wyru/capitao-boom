@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class Foe : MonoBehaviour {
 	public Character playerStatus;
+	public GameObject munition;
 
 	public int maxLife;
 	public int life;
@@ -15,7 +16,7 @@ public class Foe : MonoBehaviour {
 
 	public int speed;
 	public int groundIndex = 0;
-	public int enemyType;
+	public int enemyType; // 0 - Melee | 1 - Ranged
 
 	private Rigidbody2D RB2d;
 	private BoxCollider2D BC2d;
@@ -24,10 +25,10 @@ public class Foe : MonoBehaviour {
 
 	private float attackDistance = 1.5f;
 	public float time;
-	public Text timer;
 
 	// Use this for initialization
 	void Start() {
+		this.munition = Resources.Load ("prefabs/Munition", typeof (GameObject)) as GameObject;
 		this.RB2d = this.GetComponent<Rigidbody2D>();
 		this.BC2d = this.GetComponent<BoxCollider2D>();
 		this.ownRenderer = this.GetComponent<SpriteRenderer>();
@@ -38,7 +39,7 @@ public class Foe : MonoBehaviour {
 	// Update is called once per frame
 	void Update() {
 		if (this.life > 0) {
-			ChasePlayer ();
+			BehaviorController ();
 		} else {
 			this.Die ();
 		}
@@ -47,51 +48,145 @@ public class Foe : MonoBehaviour {
 	IEnumerator Delay ()
 	{
 		isAttacking = true;
-		yield return new WaitForSeconds(.5f);
+		yield return new WaitForSeconds(.6f);
 		isAttacking = false;
 	}
 
+	IEnumerator Delay2 ()
+	{
+		isAttacking = true;
+		yield return new WaitForSeconds(1.5f);
+		isAttacking = false;
+	}
+
+
+	void BehaviorController () {
+		double horizDist = Mathf.Abs (this.transform.position.x - playerStatus.transform.position.x);
+		double verticalDist = Mathf.Abs (this.transform.position.y - playerStatus.transform.position.y);
+
+		if (enemyType == 0) {
+			if (horizDist > 5.0) {
+				Approach ();
+			} else {
+				ChasePlayer ();
+			}
+		} else {
+			if (horizDist > 5) {
+				Approach ();
+				Align ();
+			} else if (horizDist < (4.0)) {
+				Retreat ();
+			} else {
+				FacePlayer ();
+				Fire ();
+			}
+		}
+
+	}
+
+	void FacePlayer () {
+		if (this.transform.position.x > playerStatus.transform.position.x) {
+			this.Mirror(4);
+		} else {
+			this.Mirror(6);
+		}
+	}
+		
+
+	void Approach () {
+		if (this.transform.position.x > playerStatus.transform.position.x) {
+			this.Mirror (6);
+			this.MoveLeft ();
+		} else {
+			this.Mirror (4);
+			this.MoveRight ();
+		}
+	}
+
+	void Align () {
+		double verticalDist = Mathf.Abs (this.transform.position.y - playerStatus.transform.position.y);
+		if (verticalDist >= 0.2) 
+		{
+			if (this.transform.position.y > playerStatus.transform.position.y) {
+				this.MoveDown();
+			} else {
+				this.MoveUp();
+			}
+		}
+	}
+
+	void Retreat () {
+		if (this.transform.position.x > playerStatus.transform.position.x) {
+			this.Mirror (4);
+			this.MoveRight ();	
+		} else {
+			this.Mirror (6);
+			this.MoveLeft ();
+		}
+	}
+
+	void Fire () {
+		if (!isAttacking) {
+			AttackRanged ();
+			StartCoroutine ("Delay2");
+		}
+	}
+
 	void ChasePlayer () {
-		double newDistance = Mathf.Abs (this.transform.position.x - playerStatus.transform.position.x);
+		double horizDist = Mathf.Abs (this.transform.position.x - playerStatus.transform.position.x);
 		double verticalDist = Mathf.Abs (this.transform.position.y - playerStatus.transform.position.y);
 
 		if (!isAttacking) {
 			// Check if it's in distance to the player
-			if (newDistance <= attackDistance && verticalDist <= 0.2) {
+			if (horizDist <= attackDistance && verticalDist <= 0.2) 
+			{
 				Attack ();
 				StartCoroutine ("Delay");
-			} else if (newDistance <= attackDistance && verticalDist >= 0.2) {
-				if (verticalDist >= 0.8) {
-					if (this.transform.position.y > playerStatus.transform.position.y) {
+			} 
+			else if (horizDist <= attackDistance && verticalDist >= 0.2) 
+			{
+				if (verticalDist >= 0.2) 
+				{
+					if (this.transform.position.y > playerStatus.transform.position.y) 
+					{
 						this.MoveDown();
-					} else {
+					} 
+					else 
+					{
 						this.MoveUp();
 					}
 				}
 			}
-			else {
+			else 
+			{
 				int op = (int) Random.Range (0, 100);
-				op %= 2;
-				if (op == 0) {
-					if (verticalDist >= 0.2) {
+				op %= 4;
+				if (op == 0 || (horizDist <= (attackDistance + 2))) 
+				{
+					if (verticalDist >= 0.2) 
+					{
 						if (this.transform.position.y > playerStatus.transform.position.y) {
 							this.MoveDown();
 						} else {
 							this.MoveUp();
 						}
 					}
-				} else { 
-					if (this.transform.position.x > playerStatus.transform.position.x) {
+				} 
+				else 
+				{ 
+					if (this.transform.position.x > playerStatus.transform.position.x) 
+					{
 						this.Mirror(6);
 						this.MoveLeft();
-					} else { 
+					} 
+					else 
+					{ 
 						this.Mirror(4);
 						this.MoveRight();
 					}
 				}
 			}
 		}
-
 	}
 
 	public void Mirror(int dir) {
@@ -127,13 +222,21 @@ public class Foe : MonoBehaviour {
 		// this.animator.SetBool("walking", false);
 	}
 		
-	public void Attack() {
-		Debug.Log ("kapow!");
+	public void Attack () {
 		playerStatus.takeDamage (1);
 	}
 
+	public void AttackRanged () {
+		Rigidbody2D foeProjectile = munition.GetComponent<Rigidbody2D> ();
+		Rigidbody2D clone = Instantiate (foeProjectile, this.transform.position, Quaternion.identity) as Rigidbody2D;
+		if (this.transform.position.x < playerStatus.transform.position.x) {
+			clone.velocity = transform.TransformDirection (Vector2.left * 4);
+		} else {
+			clone.velocity = transform.TransformDirection (Vector2.right * 4);
+		}
+	}
+
 	public void Damage(int damage) {
-		Debug.Log ("Argh!");
 		if (!isReceivingDamage && this.life > 0) {
 			this.life -= damage;
 			isReceivingDamage = true;
@@ -147,6 +250,10 @@ public class Foe : MonoBehaviour {
 		Destroy(this.gameObject);
 	}
 
+
+	/// <summary>
+	/// Flashes upon receiving damage
+	/// </summary>
 	IEnumerator Flash ()
 	{
 		bool toggle = true;

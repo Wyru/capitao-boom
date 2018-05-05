@@ -34,3 +34,9 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+Library/ShaderIncludePaths
+*.log
+Library/ScriptAssemblies/UnityEditor.StandardEvents.dll.mdb
+*.dll
+Library/metadata/11/11590170e1948c84bb16db6215ce81e6
+Library/CurrentLayout.dwlt
