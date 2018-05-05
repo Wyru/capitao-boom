@@ -28,5 +28,12 @@ public class InputHandler {
         else if (Input.GetButtonUp("Fire1")) {
             player.Attack();
         }
+
+        if (Input.GetButtonDown("Fire2")) {
+            player.BeginChargeUltimateAttack();
+        }
+        else if (Input.GetButtonUp("Fire2")) {
+            player.Super();
+        }
     }
 }
