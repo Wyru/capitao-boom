@@ -74,8 +74,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minY: 0
-  timeToExplode: 4
+  timeToExplode: 1.5
   playerStatus: {fileID: 0}
+  booom: {fileID: 1405975440322656, guid: 42f550385a32d0f47a2569a7e9872a0a, type: 2}
 --- !u!212 &212058151897316106
 SpriteRenderer:
   m_ObjectHideFlags: 1

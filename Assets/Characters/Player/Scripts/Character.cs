@@ -7,6 +7,9 @@ public class Character : MonoBehaviour {
     public int maxLife;
     public int life;
 
+    public int maxBoomPower;
+    public int boomPower;
+
     public int speed;
     public GameLoop gameLoop;
     public int groundIndex = 0;
@@ -35,6 +38,32 @@ public class Character : MonoBehaviour {
     public bool charging = false;
     public bool verticalMoving;
 	public bool isTakingDamage;
+
+
+
+    //sounds
+    public AudioClip damage;
+    public AudioClip death;
+
+    public AudioClip thrownSound;
+    public AudioClip trownBomps1;
+    public AudioClip trownBomps2;
+
+    public AudioClip randomQuote;
+
+    public AudioClip ultimateBomb;
+
+    public AudioClip pizza;
+    public AudioClip dolly;
+    public AudioClip heal;
+
+
+    public AudioSource audioSource;
+
+    public bool powerUp = false;
+
+    public float powerUpTime;
+
     // Use this for initialization
     void Start() {
 
@@ -49,6 +78,7 @@ public class Character : MonoBehaviour {
         this.bombsLeft = this.maxBombs;
 
 		this.isTakingDamage = false;
+        this.audioSource = this.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -107,7 +137,7 @@ public class Character : MonoBehaviour {
 
     public void Move() {
         this.animator.SetBool("walking", true);
-        this.transform.Translate(new Vector2(1, 0) * Time.deltaTime * this.speed);
+        this.transform.Translate(new Vector2(1, 0) * Time.deltaTime * (powerUp ? this.speed * 1.3f:this.speed));
     }
 
     public void StopWalking() {
@@ -118,6 +148,15 @@ public class Character : MonoBehaviour {
     public void BeginChargeAttack() {
         this.charging = true;
         StartCoroutine("ChargingAttack");
+    }
+    public void BeginChargeUltimateAttack() {
+        if (boomPower >= maxBombs) {
+            this.charging = true;
+            StartCoroutine("ChargingAttack");
+        }
+        else
+            Debug.Log("sem energia");
+        
     }
 
     IEnumerator ChargingAttack() {
@@ -133,12 +172,15 @@ public class Character : MonoBehaviour {
         }
     }
 
+
     public void Attack() {
         this.charging = false;
 
         StopCoroutine("ChargingAttack");
 
-		if (bombsLeft > 0) {
+        PlayThrowBombSound();
+
+        if (bombsLeft > 0) {
 			this.animator.SetTrigger("attack");
 			Rigidbody2D projectile = bombPrefab.GetComponent<Rigidbody2D> ();
 			Rigidbody2D clone;
@@ -147,21 +189,40 @@ public class Character : MonoBehaviour {
 			clone.GetComponent<BombBehavior> ().minY = this.transform.position.y - 1;
 			clone.GetComponent<BombBehavior> ().playerStatus = this;
 			clone.velocity = transform.TransformDirection ((Vector2.right + (2 * Vector2.up)) * attackDistance);
-		}
+            
+        }
     }
 
     public void Super() {
-        this.animator.SetTrigger("super");
+        if (boomPower >= maxBombs) {
+            PlaySuperSound();
+            this.charging = false;
+            StopCoroutine("ChargingAttack");
+            this.animator.SetTrigger("super");
+            Rigidbody2D projectile = superBombPrefab.GetComponent<Rigidbody2D>();
+            Rigidbody2D clone;
+            bombsLeft--;
+            clone = Instantiate(projectile, this.transform.position, Quaternion.identity) as Rigidbody2D;
+            clone.GetComponent<UltimateBombBehavior>().minY = this.transform.position.y - 1;
+            clone.GetComponent<UltimateBombBehavior>().playerStatus = this;
+            clone.velocity = transform.TransformDirection((Vector2.right + (2 * Vector2.up)) * attackDistance);
+            boomPower = 0;
+
+
+        }
+
+
     }
 
 	public void takeDamage (int damage) {
-		this.Damage (damage);
+        
+        this.Damage (damage);
 	}
-
 
     private void Damage(int damage) {
 		if (isTakingDamage == false && this.life > 0) {
-			isTakingDamage = true;
+            this.animator.SetTrigger("damage");
+            isTakingDamage = true;
 			this.life -= damage;
 			StartCoroutine("Flash");
 		} 
@@ -170,7 +231,9 @@ public class Character : MonoBehaviour {
     }
 
 	private void Die () {
-		Destroy(this.gameObject);
+        this.animator.SetBool("death", true);
+        this.PlayDeathSound();
+        Destroy(this);
 	}
 
 	IEnumerator Flash ()
@@ -190,5 +253,60 @@ public class Character : MonoBehaviour {
 		this.BC2d.enabled = true;
 		isTakingDamage = false;
 	}
-}
 
+
+    public void PlayHitSound() {
+        audioSource.clip = damage;
+        this.audioSource.Play();
+    }
+
+    public void PlayThrowBombSound() {
+        audioSource.clip = thrownSound;
+        this.audioSource.Play();
+
+        if (Random.value <.4) {
+            if (Random.value > .5) 
+                audioSource.clip = trownBomps1;
+            else
+                audioSource.clip = trownBomps2;
+
+            this.audioSource.Play();
+        }
+    }
+
+    public void PlayDeathSound() {
+        audioSource.clip = death;
+        this.audioSource.Play();
+    }
+
+    public void PlaySuperSound() {
+        audioSource.clip = ultimateBomb;
+        this.audioSource.Play();
+    }
+
+    public void Heal(int value) {
+        audioSource.clip = pizza;
+        this.audioSource.Play();
+        audioSource.clip = heal;
+        this.audioSource.Play();
+        this.life += value;
+        if (life > maxLife) {
+            life = maxLife;
+        }
+    }
+
+    public void PowerUp() {
+        audioSource.clip = dolly;
+        this.audioSource.Play();
+        powerUp = true;
+    }
+
+    IEnumerator TimerPower() {
+        for (int i = 0; i < powerUpTime; i+=1) {
+
+            yield return new WaitForSeconds(1f);
+        }
+        powerUp = false;
+    }
+
+}

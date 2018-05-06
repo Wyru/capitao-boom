@@ -62,7 +62,13 @@
     <Compile Include="Assets\Characters\Player\Scripts\Character.cs" />
     <Compile Include="Assets\Characters\Player\Scripts\InputHandler.cs" />
     <Compile Include="Assets\Resources\prefabs\bomb\Script\BombBehavior.cs" />
+    <Compile Include="Assets\Resources\prefabs\boom\Script\BoomBehavior.cs" />
+    <Compile Include="Assets\Resources\prefabs\dolly\DollyBehavior.cs" />
     <Compile Include="Assets\Resources\prefabs\foe\Script\Foe.cs" />
+    <Compile Include="Assets\Resources\prefabs\GreatBoom\Script\GreatBoomBehavior.cs" />
+    <Compile Include="Assets\Resources\prefabs\MunitionBehavior.cs" />
+    <Compile Include="Assets\Resources\prefabs\Pizza\PizzaBehavior.cs" />
+    <Compile Include="Assets\Resources\prefabs\ultimate bomb\Script\UltimateBombBehavior.cs" />
     <Compile Include="Assets\Scripts\CameraBehavior.cs" />
     <Compile Include="Assets\Scripts\EnemySpawn.cs" />
     <Compile Include="Assets\Scripts\GameLoop.cs" />

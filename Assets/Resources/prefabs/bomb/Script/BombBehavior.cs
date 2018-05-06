@@ -8,6 +8,7 @@ public class BombBehavior : MonoBehaviour {
 	public float timeToExplode;
 	public Character playerStatus;
 	private RaycastHit2D[] foesHit;
+    public GameObject booom;
 
 	// Use this for initialization
 	void Start () {
@@ -35,16 +36,16 @@ public class BombBehavior : MonoBehaviour {
         //chama a animação de explosão
         //raycast nos inimigos ao redor que estão na mesma camada
         //chama a função de dano neles
-        Destroy(this.gameObject);
-		foesHit = Physics2D.CircleCastAll (this.transform.position, 2.0f, new Vector2(1,1), 2.0f);
+        Instantiate(booom,this.transform.position, Quaternion.identity);
+		foesHit = Physics2D.CircleCastAll (this.transform.position, 1.0f, new Vector2(1,1), 1.0f);
 		for (int i = 0; i < foesHit.Length; ++i) {
-		//	
-			if (foesHit [i].collider != null && foesHit[i].collider.name != "Player") {
-				Debug.Log (foesHit [i].collider.name);
-				foesHit [i].collider.gameObject.GetComponent<Foe>().Damage (1);
+			if (foesHit [i].collider.tag == "Foe") {
+				foesHit [i].collider.gameObject.GetComponent<Foe> ().Damage (1);
+                playerStatus.boomPower++;
 			}
 		}
 		playerStatus.bombsLeft++;
 
+        Destroy(this.gameObject);
     }
 }
