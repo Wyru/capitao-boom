@@ -30,6 +30,11 @@ public class Foe : MonoBehaviour {
     public AudioSource audioSource;
     private Animator animator;
 
+    public bool dead = false;
+
+    public GameObject pizza;
+    public GameObject dolly;
+
     // Use this for initialization
     void Start() {
 		this.munition = Resources.Load ("prefabs/Munition", typeof (GameObject)) as GameObject;
@@ -72,7 +77,7 @@ public class Foe : MonoBehaviour {
 
 		if (enemyType == 0) {
 			if (horizDist > 5.0) {
-                this.isChasing = false;
+        this.isChasing = false;
 				Approach ();
 			} else {
                 this.isChasing = true;
@@ -135,7 +140,7 @@ public class Foe : MonoBehaviour {
 
 	void Fire () {
 		if (!isAttacking) {
-			AttackRanged ();
+            AttackRanged();
 			StartCoroutine ("Delay2");
 		}
 	}
@@ -144,10 +149,11 @@ public class Foe : MonoBehaviour {
 		double horizDist = Mathf.Abs (this.transform.position.x - playerStatus.transform.position.x);
 		double verticalDist = Mathf.Abs (this.transform.position.y - playerStatus.transform.position.y);
 
-		if (!isAttacking) {
+        if (!isAttacking) {
 			// Check if it's in distance to the player
 			if (horizDist <= attackDistance && verticalDist <= 0.2) 
 			{
+                
 				Attack ();
 				StartCoroutine ("Delay");
 			} 
@@ -161,10 +167,12 @@ public class Foe : MonoBehaviour {
 				{
 					this.MoveUp();
 				}
+				
 			}
 			else 
 			{
-				int op = (int) Random.Range (0, 100);
+
+                int op = (int) Random.Range (0, 100);
 				op %= 4;
 				if (op == 0) 
 				{
@@ -219,7 +227,7 @@ public class Foe : MonoBehaviour {
 		
 
 	public void Move() {
-		// this.animator.SetBool("walking", true);
+		this.animator.SetBool("walk", true);
 		this.transform.Translate(new Vector2(1, 0) * Time.deltaTime * this.speed);
 	}
 
@@ -228,20 +236,24 @@ public class Foe : MonoBehaviour {
 	}
 		
 	public void Attack () {
+        this.animator.SetTrigger("attack");
         playerStatus.takeDamage (1);
 	}
 
 	public void AttackRanged () {
+        this.animator.SetTrigger("attack");
 		Rigidbody2D foeProjectile = munition.GetComponent<Rigidbody2D> ();
 		Rigidbody2D clone = Instantiate (foeProjectile, this.transform.position, Quaternion.identity) as Rigidbody2D;
 		if (this.transform.position.x < playerStatus.transform.position.x) {
-			clone.velocity = transform.TransformDirection (Vector2.left * 4);
+			clone.velocity = transform.TransformDirection (Vector2.left * -10);
 		} else {
-			clone.velocity = transform.TransformDirection (Vector2.right * 4);
+            clone.transform.eulerAngles.Set(0,180,0);
+            clone.velocity = transform.TransformDirection (Vector2.right * 10);
 		}
-	}
 
-	public void Damage(int damage) {
+    }
+
+    public void Damage(int damage) {
 		if (!isReceivingDamage && this.life > 0) {
 			this.life -= damage;
 			isReceivingDamage = true;
@@ -253,14 +265,23 @@ public class Foe : MonoBehaviour {
 
 	private void Die () {
         playerStatus.foesFell++;
-		Destroy(this.gameObject);
-	}
-
-
-	/// <summary>
-	/// Flashes upon receiving damage
-	/// </summary>
-	IEnumerator Flash ()
+        if (!dead) {
+            dead = true;
+            this.animator.SetTrigger("death");
+            Destroy(this.GetComponent<Rigidbody2D>());
+            Destroy(this.GetComponent<BoxCollider2D>());
+            Destroy(this.GetComponent<Foe>());
+            if (Random.value > .6) {
+                Instantiate(pizza, this.transform.position, Quaternion.identity);
+            }else if (Random.value > .8) {
+                Instantiate(dolly, this.transform.position, Quaternion.identity);
+            }
+        }
+    }
+    /// <summary>
+    /// Flashes upon receiving damage
+    /// </summary>
+    IEnumerator Flash ()
 	{
 		bool toggle = true;
 		this.BC2d.enabled = false;

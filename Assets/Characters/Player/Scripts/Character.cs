@@ -55,9 +55,16 @@ public class Character : MonoBehaviour {
 
     public AudioClip ultimateBomb;
 
+    public AudioClip pizza;
+    public AudioClip dolly;
+    public AudioClip heal;
+
+
     public AudioSource audioSource;
 
+    public bool powerUp = false;
 
+    public float powerUpTime;
 
     // Use this for initialization
     void Start() {
@@ -132,7 +139,7 @@ public class Character : MonoBehaviour {
 
     public void Move() {
         this.animator.SetBool("walking", true);
-        this.transform.Translate(new Vector2(1, 0) * Time.deltaTime * this.speed);
+        this.transform.Translate(new Vector2(1, 0) * Time.deltaTime * (powerUp ? this.speed * 1.3f:this.speed));
     }
 
     public void StopWalking() {
@@ -184,7 +191,8 @@ public class Character : MonoBehaviour {
 			clone.GetComponent<BombBehavior> ().minY = this.transform.position.y - 1;
 			clone.GetComponent<BombBehavior> ().playerStatus = this;
 			clone.velocity = transform.TransformDirection ((Vector2.right + (2 * Vector2.up)) * attackDistance);
-		}
+            
+        }
     }
 
     public void Super() {
@@ -209,13 +217,14 @@ public class Character : MonoBehaviour {
     }
 
 	public void takeDamage (int damage) {
-        this.animator.SetTrigger("damage");
+        
         this.Damage (damage);
 	}
 
     private void Damage(int damage) {
 		if (isTakingDamage == false && this.life > 0) {
-			isTakingDamage = true;
+            this.animator.SetTrigger("damage");
+            isTakingDamage = true;
 			this.life -= damage;
 			StartCoroutine("Flash");
 		} 
@@ -258,7 +267,7 @@ public class Character : MonoBehaviour {
         this.audioSource.Play();
 
         if (Random.value <.4) {
-            if (Random.value > .2) 
+            if (Random.value > .5) 
                 audioSource.clip = trownBomps1;
             else
                 audioSource.clip = trownBomps2;
@@ -275,6 +284,31 @@ public class Character : MonoBehaviour {
     public void PlaySuperSound() {
         audioSource.clip = ultimateBomb;
         this.audioSource.Play();
+    }
+
+    public void Heal(int value) {
+        audioSource.clip = pizza;
+        this.audioSource.Play();
+        audioSource.clip = heal;
+        this.audioSource.Play();
+        this.life += value;
+        if (life > maxLife) {
+            life = maxLife;
+        }
+    }
+
+    public void PowerUp() {
+        audioSource.clip = dolly;
+        this.audioSource.Play();
+        powerUp = true;
+    }
+
+    IEnumerator TimerPower() {
+        for (int i = 0; i < powerUpTime; i+=1) {
+
+            yield return new WaitForSeconds(1f);
+        }
+        powerUp = false;
     }
 
 }

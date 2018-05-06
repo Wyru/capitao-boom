@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameLoop : MonoBehaviour {
 
@@ -23,6 +24,10 @@ public class GameLoop : MonoBehaviour {
 
     public Image boomPowerMeter;
 
+    public GameObject gameOver;
+
+    public bool gameOverBool = false;
+
     void Start() {
 		player = GameObject.FindWithTag ("Player").GetComponent<Character>();
 		lifePanel = GameObject.FindWithTag ("HUD");
@@ -38,6 +43,12 @@ public class GameLoop : MonoBehaviour {
         UpdateBombHUD();
         UpdateThrowBombHUD();
         UpdateBoomPowerHUD();
+
+        if (gameOverBool) {
+            if (Input.GetButtonDown("Fire 1")) {
+               // SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            }
+        }
     }
 
 
@@ -85,7 +96,8 @@ public class GameLoop : MonoBehaviour {
 
 
     private void GameOver() {
-
+        this.gameOver.SetActive(true);
+        gameOverBool = true;
     }
 
     private void Menu() {

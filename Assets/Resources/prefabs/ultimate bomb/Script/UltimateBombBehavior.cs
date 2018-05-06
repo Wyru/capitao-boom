@@ -42,7 +42,7 @@ public class UltimateBombBehavior : MonoBehaviour {
             //	
             if (foesHit[i].collider != null && foesHit[i].collider.name != "Player") {
                 Debug.Log(foesHit[i].collider.name);
-                foesHit[i].collider.gameObject.GetComponent<Foe>().Damage(1);
+                foesHit[i].collider.gameObject.GetComponent<Foe>().Damage(5);
             }
         }
         playerStatus.bombsLeft++;
