@@ -32,6 +32,7 @@ public class Foe : MonoBehaviour {
     public bool dead = false;
 
     public GameObject pizza;
+    public GameObject dolly;
 
     // Use this for initialization
     void Start() {
@@ -270,6 +271,8 @@ public class Foe : MonoBehaviour {
             Destroy(this.GetComponent<Foe>());
             if (Random.value > .6) {
                 Instantiate(pizza, this.transform.position, Quaternion.identity);
+            }else if (Random.value > .8) {
+                Instantiate(dolly, this.transform.position, Quaternion.identity);
             }
         }
     }
