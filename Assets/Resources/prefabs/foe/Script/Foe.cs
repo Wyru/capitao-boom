@@ -139,7 +139,7 @@ public class Foe : MonoBehaviour {
 
 	void Fire () {
 		if (!isAttacking) {
-			AttackRanged ();
+            AttackRanged();
 			StartCoroutine ("Delay2");
 		}
 	}
@@ -242,16 +242,19 @@ public class Foe : MonoBehaviour {
 	}
 
 	public void AttackRanged () {
+        this.animator.SetTrigger("attack");
 		Rigidbody2D foeProjectile = munition.GetComponent<Rigidbody2D> ();
 		Rigidbody2D clone = Instantiate (foeProjectile, this.transform.position, Quaternion.identity) as Rigidbody2D;
 		if (this.transform.position.x < playerStatus.transform.position.x) {
-			clone.velocity = transform.TransformDirection (Vector2.left * 4);
+			clone.velocity = transform.TransformDirection (Vector2.left * -10);
 		} else {
-			clone.velocity = transform.TransformDirection (Vector2.right * 4);
+            clone.transform.eulerAngles.Set(0,180,0);
+            clone.velocity = transform.TransformDirection (Vector2.right * 10);
 		}
-	}
 
-	public void Damage(int damage) {
+    }
+
+    public void Damage(int damage) {
 		if (!isReceivingDamage && this.life > 0) {
 			this.life -= damage;
 			isReceivingDamage = true;

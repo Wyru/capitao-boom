@@ -133,6 +133,7 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   dead: 0
   pizza: {fileID: 1258091013617220, guid: f3f2ab56673fe7044ae5c19b2973bf93, type: 2}
+  dolly: {fileID: 1868070788801134, guid: a58ae7e4b0c40fc4d814d94d43ecd076, type: 2}
 --- !u!212 &212737010464975590
 SpriteRenderer:
   m_ObjectHideFlags: 1
