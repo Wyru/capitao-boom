@@ -23,13 +23,13 @@ public class Foe : MonoBehaviour {
 	private SpriteRenderer ownRenderer;
 	public float verticalUpdateDistance = 0.5f;
 
-	private float attackDistance = 1.5f;
+	private float attackDistance = 3.0f;
 	public float time;
 
     public AudioSource audioSource;
     private Animator animator;
 
-
+    public bool dead = false;
 
     // Use this for initialization
     void Start() {
@@ -74,7 +74,7 @@ public class Foe : MonoBehaviour {
 		double verticalDist = Mathf.Abs (this.transform.position.y - playerStatus.transform.position.y);
 
 		if (enemyType == 0) {
-			if (horizDist > 5.0) {
+			if (horizDist > 3) {
 				Approach ();
 			} else {
 				ChasePlayer ();
@@ -145,30 +145,32 @@ public class Foe : MonoBehaviour {
 		double horizDist = Mathf.Abs (this.transform.position.x - playerStatus.transform.position.x);
 		double verticalDist = Mathf.Abs (this.transform.position.y - playerStatus.transform.position.y);
 
-		if (!isAttacking) {
+        if (!isAttacking) {
 			// Check if it's in distance to the player
 			if (horizDist <= attackDistance && verticalDist <= 0.2) 
 			{
+                
 				Attack ();
 				StartCoroutine ("Delay");
 			} 
 			else if (horizDist <= attackDistance && verticalDist >= 0.2) 
 			{
-				if (verticalDist >= 0.2) 
+
+
+                if (this.transform.position.y > playerStatus.transform.position.y) 
 				{
-					if (this.transform.position.y > playerStatus.transform.position.y) 
-					{
-						this.MoveDown();
-					} 
-					else 
-					{
-						this.MoveUp();
-					}
+					this.MoveDown();
+				} 
+				else 
+				{
+					this.MoveUp();
 				}
+				
 			}
 			else 
 			{
-				int op = (int) Random.Range (0, 100);
+
+                int op = (int) Random.Range (0, 100);
 				op %= 4;
 				if (op == 0 || (horizDist <= (attackDistance + 2))) 
 				{
@@ -223,7 +225,7 @@ public class Foe : MonoBehaviour {
 		
 
 	public void Move() {
-		// this.animator.SetBool("walking", true);
+		this.animator.SetBool("walk", true);
 		this.transform.Translate(new Vector2(1, 0) * Time.deltaTime * this.speed);
 	}
 
@@ -232,7 +234,7 @@ public class Foe : MonoBehaviour {
 	}
 		
 	public void Attack () {
-        this.animator.SetTR("death", true);
+        this.animator.SetTrigger("attack");
         playerStatus.takeDamage (1);
 	}
 
@@ -257,14 +259,22 @@ public class Foe : MonoBehaviour {
 	}
 
 	private void Die () {
-		Destroy(this.gameObject);
-	}
+
+        if (!dead) {
+            dead = true;
+            this.animator.SetTrigger("death");
+            Destroy(this.GetComponent<Rigidbody2D>());
+            Destroy(this.GetComponent<BoxCollider2D>());
+            Destroy(this.GetComponent<Foe>());
+        }
+    }
 
 
-	/// <summary>
-	/// Flashes upon receiving damage
-	/// </summary>
-	IEnumerator Flash ()
+
+    /// <summary>
+    /// Flashes upon receiving damage
+    /// </summary>
+    IEnumerator Flash ()
 	{
 		bool toggle = true;
 		this.BC2d.enabled = false;
