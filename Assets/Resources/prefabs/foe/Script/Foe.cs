@@ -26,18 +26,27 @@ public class Foe : MonoBehaviour {
 	private float attackDistance = 1.5f;
 	public float time;
 
-	// Use this for initialization
-	void Start() {
+    public AudioSource audioSource;
+    private Animator animator;
+
+
+
+    // Use this for initialization
+    void Start() {
 		this.munition = Resources.Load ("prefabs/Munition", typeof (GameObject)) as GameObject;
 		this.RB2d = this.GetComponent<Rigidbody2D>();
 		this.BC2d = this.GetComponent<BoxCollider2D>();
 		this.ownRenderer = this.GetComponent<SpriteRenderer>();
 		this.playerStatus = GameObject.FindWithTag ("Player").GetComponent<Character>();
 		this.life = maxLife;
-	}
+        this.audioSource = this.GetComponent<AudioSource>();
+        this.animator = this.GetComponent<Animator>();
 
-	// Update is called once per frame
-	void Update() {
+
+    }
+
+    // Update is called once per frame
+    void Update() {
 		if (this.life > 0) {
 			BehaviorController ();
 		} else {
@@ -223,7 +232,8 @@ public class Foe : MonoBehaviour {
 	}
 		
 	public void Attack () {
-		playerStatus.takeDamage (1);
+        this.animator.SetTR("death", true);
+        playerStatus.takeDamage (1);
 	}
 
 	public void AttackRanged () {

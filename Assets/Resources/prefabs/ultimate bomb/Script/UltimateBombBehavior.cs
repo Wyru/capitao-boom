@@ -10,6 +10,7 @@ public class UltimateBombBehavior : MonoBehaviour {
     private RaycastHit2D[] foesHit;
     public GameObject booom;
 
+
     // Use this for initialization
     void Start() {
         StartCoroutine("Timer");
