@@ -31,6 +31,8 @@ public class Foe : MonoBehaviour {
 
     public bool dead = false;
 
+    public GameObject pizza;
+
     // Use this for initialization
     void Start() {
 		this.munition = Resources.Load ("prefabs/Munition", typeof (GameObject)) as GameObject;
@@ -266,6 +268,9 @@ public class Foe : MonoBehaviour {
             Destroy(this.GetComponent<Rigidbody2D>());
             Destroy(this.GetComponent<BoxCollider2D>());
             Destroy(this.GetComponent<Foe>());
+            if (Random.value > .6) {
+                Instantiate(pizza, this.transform.position, Quaternion.identity);
+            }
         }
     }
 

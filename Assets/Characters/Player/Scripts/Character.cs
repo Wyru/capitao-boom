@@ -275,4 +275,11 @@ public class Character : MonoBehaviour {
         this.audioSource.Play();
     }
 
+    public void Heal(int value) {
+        this.life += value;
+        if (life > maxLife) {
+            life = maxLife;
+        }
+    }
+
 }
