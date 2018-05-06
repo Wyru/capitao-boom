@@ -13,9 +13,14 @@ public class MunitionBehavior : MonoBehaviour {
 		player = GameObject.FindWithTag ("Player").GetComponent<Character>();
 		body = this.GetComponent<Rigidbody2D> ();
 	}
-	
-	// Update is called once per frame
-	void Update () {
+
+    void OnBecameInvisible()
+    {
+        Destroy(gameObject);
+    }
+
+    // Update is called once per frame
+    void Update () {
 		RaycastHit2D[] hit = Physics2D.CircleCastAll (this.transform.position, 0.1f, body.velocity, 0.05f);
 		for (int i = 0; i < hit.Length; ++i) {
 			if (hit[i].collider.name == "Player") {
@@ -23,7 +28,8 @@ public class MunitionBehavior : MonoBehaviour {
 				Destroy (this.gameObject);
 			}
 		}
-		if (body.velocity == Vector2.zero)
-			Destroy (this.gameObject);
+
+        /* if (body.velocity == Vector2.zero)
+			Destroy (this.gameObject); */
 	}
 }

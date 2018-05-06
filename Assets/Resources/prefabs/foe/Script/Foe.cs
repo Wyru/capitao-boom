@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Foe : MonoBehaviour {
 	public Character playerStatus;
-	public GameObject munition;
+    public GameObject munition;
 
 	public int maxLife;
 	public int life;
@@ -13,6 +13,7 @@ public class Foe : MonoBehaviour {
 
 	public bool isAttacking;
 	public bool isReceivingDamage;
+    public bool isChasing;
 
 	public int speed;
 	public int groundIndex = 0;
@@ -23,7 +24,7 @@ public class Foe : MonoBehaviour {
 	private SpriteRenderer ownRenderer;
 	public float verticalUpdateDistance = 0.5f;
 
-	private float attackDistance = 3.0f;
+	private float attackDistance = 2.5f;
 	public float time;
 
     public AudioSource audioSource;
@@ -45,7 +46,6 @@ public class Foe : MonoBehaviour {
         this.audioSource = this.GetComponent<AudioSource>();
         this.animator = this.GetComponent<Animator>();
 
-
     }
 
     // Update is called once per frame
@@ -60,7 +60,7 @@ public class Foe : MonoBehaviour {
 	IEnumerator Delay ()
 	{
 		isAttacking = true;
-		yield return new WaitForSeconds(.6f);
+		yield return new WaitForSeconds(1f);
 		isAttacking = false;
 	}
 
@@ -71,15 +71,16 @@ public class Foe : MonoBehaviour {
 		isAttacking = false;
 	}
 
-
 	void BehaviorController () {
 		double horizDist = Mathf.Abs (this.transform.position.x - playerStatus.transform.position.x);
 		double verticalDist = Mathf.Abs (this.transform.position.y - playerStatus.transform.position.y);
 
 		if (enemyType == 0) {
-			if (horizDist > 3) {
+			if (horizDist > 5.0) {
+        this.isChasing = false;
 				Approach ();
 			} else {
+                this.isChasing = true;
 				ChasePlayer ();
 			}
 		} else {
@@ -156,11 +157,9 @@ public class Foe : MonoBehaviour {
 				Attack ();
 				StartCoroutine ("Delay");
 			} 
-			else if (horizDist <= attackDistance && verticalDist >= 0.2) 
+			else if (horizDist <= attackDistance && verticalDist > 0.2) 
 			{
-
-
-                if (this.transform.position.y > playerStatus.transform.position.y) 
+				if (this.transform.position.y > playerStatus.transform.position.y) 
 				{
 					this.MoveDown();
 				} 
@@ -175,7 +174,7 @@ public class Foe : MonoBehaviour {
 
                 int op = (int) Random.Range (0, 100);
 				op %= 4;
-				if (op == 0 || (horizDist <= (attackDistance + 2))) 
+				if (op == 0) 
 				{
 					if (verticalDist >= 0.2) 
 					{
@@ -265,7 +264,7 @@ public class Foe : MonoBehaviour {
 	}
 
 	private void Die () {
-
+        playerStatus.foesFell++;
         if (!dead) {
             dead = true;
             this.animator.SetTrigger("death");
@@ -279,9 +278,6 @@ public class Foe : MonoBehaviour {
             }
         }
     }
-
-
-
     /// <summary>
     /// Flashes upon receiving damage
     /// </summary>

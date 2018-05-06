@@ -1384,7 +1384,7 @@ Transform:
   m_LocalScale: {x: 0.3831779, y: 0.30538929, z: 0.53682345}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1583071359
 GameObject:
@@ -1743,14 +1743,14 @@ MonoBehaviour:
   lifeIcon: {fileID: 1600602429536456, guid: df1b3bdb95206ce47828b0a919f4981d, type: 2}
   lifePanel: {fileID: 118632392}
   bombicons:
-  - {fileID: 1185927932}
-  - {fileID: 1995237796}
-  - {fileID: 1836931565}
-  - {fileID: 1583071362}
   - {fileID: 1725688154}
+  - {fileID: 1583071362}
+  - {fileID: 1836931565}
+  - {fileID: 1995237796}
+  - {fileID: 1185927932}
   bombIcon: {fileID: 21300000, guid: 649b042e95e229a419d14e3dfda8c98b, type: 3}
   usedBombIcon: {fileID: 21300000, guid: 421e257805a123d47ba32364071ef604, type: 3}
-  hudLife: 0
+  hudLife: 5
   ThrowPowerHUD: {fileID: 1403731474}
   powerThrowRender: {fileID: 995271399}
   boomPowerMeter: {fileID: 1823822924}
