@@ -8,6 +8,10 @@ public class EnemySpawn : MonoBehaviour {
 
 	public GameObject enemyA;
 	public GameObject enemyB;
+	public GameObject enemyC;
+
+	public int instanceNo;
+
 	public float spawnTime = 3f;
 
 	private int totalSpawn;
@@ -17,6 +21,17 @@ public class EnemySpawn : MonoBehaviour {
 	void Start () {
 		player = GameObject.FindWithTag ("Player").GetComponent<Character>();
 
+		switch (instanceNo) {
+		case 1:
+			totalSpawn = 10;
+			break;
+		case 2:
+			totalSpawn = 15;
+			break;
+		default:
+			totalSpawn = 10;
+			break;
+		}
 		spawned = 0;
 		totalSpawn = 10;
 		enemyA = Resources.Load ("prefabs/foe/Types/Foe", typeof (GameObject)) as GameObject;
@@ -28,13 +43,14 @@ public class EnemySpawn : MonoBehaviour {
 	void Spawn () {
 		float distance = Mathf.Abs (player.transform.position.x - this.transform.position.x);
 		if (distance > 5.2f && distance < 25.0f) {
-			// if ((++spawned % 4) == 0) {
-			if (true) {
-				Instantiate (enemyB, this.transform.position, Quaternion.identity); 
+			if ((++spawned % 4) == 0) {
+				if (true) {
+					Instantiate (enemyB, this.transform.position, Quaternion.identity); 
 
-			} else {
-				Instantiate (enemyA, this.transform.position, Quaternion.identity); 
-			}	
+				} else {
+					Instantiate (enemyA, this.transform.position, Quaternion.identity); 
+				}
+			}
 		}
 	}
 }
