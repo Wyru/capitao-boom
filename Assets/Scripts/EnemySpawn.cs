@@ -8,6 +8,10 @@ public class EnemySpawn : MonoBehaviour {
 
 	public GameObject enemyA;
 	public GameObject enemyB;
+	public GameObject enemyC;
+
+	public int instanceNo;
+
 	public float spawnTime = 3f;
 
 	private int totalSpawn;
@@ -17,6 +21,17 @@ public class EnemySpawn : MonoBehaviour {
 	void Start () {
 		player = GameObject.FindWithTag ("Player").GetComponent<Character>();
 
+		switch (instanceNo) {
+		case 1:
+			totalSpawn = 10;
+			break;
+		case 2:
+			totalSpawn = 15;
+			break;
+		default:
+			totalSpawn = 10;
+			break;
+		}
 		spawned = 0;
 		totalSpawn = 10;
 		enemyA = Resources.Load ("prefabs/foe/Types/Foe", typeof (GameObject)) as GameObject;
