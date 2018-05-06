@@ -1,11 +1,22 @@
 fileFormatVersion: 2
 guid: 9097202697ade264db918d95612a0a26
-timeCreated: 1525495450
-licenseType: Free
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - gameLoop: {instanceID: 0}
+  - bombPrefab: {fileID: 1196011340018658, guid: 755bb3414b4fefb4281bf1d61837ffb1,
+      type: 2}
+  - superBombPrefab: {fileID: 1309385720980374, guid: 584d0a9afb7e49f4c8fef14ca7cd3ff9,
+      type: 2}
+  - damage: {instanceID: 0}
+  - death: {instanceID: 0}
+  - thrownSound: {instanceID: 0}
+  - trownBomps1: {instanceID: 0}
+  - trownBomps2: {instanceID: 0}
+  - randomQuote: {instanceID: 0}
+  - ultimateBomb: {instanceID: 0}
+  - audioSource: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

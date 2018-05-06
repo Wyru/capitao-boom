@@ -19,31 +19,48 @@ public class EnemySpawn : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		player = GameObject.FindWithTag ("Player").GetComponent<Character>();
+        spawned = 0;
+
+        player = GameObject.FindWithTag ("Player").GetComponent<Character>();
 
 		switch (instanceNo) {
-		case 1:
-			totalSpawn = 10;
+		    case 1:
+			    totalSpawn = 15;
 			break;
-		case 2:
-			totalSpawn = 15;
+		    case 2:
+			    totalSpawn = 15;
 			break;
-		default:
-			totalSpawn = 10;
+            case 3:
+                totalSpawn = 15;
+            break;
+            case 0:
+                totalSpawn = 0;
+            break;
+		    default:
+			    totalSpawn = 10;
 			break;
 		}
-		spawned = 0;
-		totalSpawn = 10;
+		
 		enemyA = Resources.Load ("prefabs/foe/Types/Foe", typeof (GameObject)) as GameObject;
 		enemyB = Resources.Load ("prefabs/foe/Types/Foe2", typeof (GameObject)) as GameObject;
-		InvokeRepeating ("Spawn", spawnTime, spawnTime);
+        enemyC = Resources.Load ("prefabs/foe/Types/Foe3", typeof(GameObject)) as GameObject;
 
+        if (spawned < totalSpawn) { InvokeRepeating("Spawn", spawnTime, spawnTime); }
 	}
 
-	void Spawn () {
+    void Update()
+    {
+        if (spawned >= totalSpawn)
+            Destroy(this.gameObject);
+    }
+
+    void Spawn () {
 		float distance = Mathf.Abs (player.transform.position.x - this.transform.position.x);
-		if (distance > 5.2f && distance < 25.0f) {
-			if ((++spawned % 4) == 0) {
+		if (distance > 5.2f && distance < 25.0f && player.foesFell < 10) {
+            if ((++spawned % 7) == 0)
+            {
+                Instantiate (enemyC, this.transform.position, Quaternion.identity);
+            } else if ((++spawned % 4) == 0) {
 				Instantiate (enemyB, this.transform.position, Quaternion.identity); 
 			} else {
 				Instantiate (enemyA, this.transform.position, Quaternion.identity); 

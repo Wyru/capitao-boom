@@ -8,6 +8,7 @@ public class BombBehavior : MonoBehaviour {
 	public float timeToExplode;
 	public Character playerStatus;
 	private RaycastHit2D[] foesHit;
+    private RaycastHit2D[] bossHit;
     public GameObject booom;
 
 	// Use this for initialization
@@ -22,6 +23,24 @@ public class BombBehavior : MonoBehaviour {
             this.GetComponent<Rigidbody2D> ().gravityScale = 0;
             this.GetComponent<Rigidbody2D> ().velocity = Vector2.zero;
             stopped = true;
+        }
+        CheckBoss();
+        
+    }
+
+    private void CheckBoss ()
+    {
+        bool hitBoss = false;
+        bossHit = Physics2D.CircleCastAll(this.transform.position, 0.1f, new Vector2(1, 1), 0.1f);
+        for (int i = 0; i < bossHit.Length; ++i)
+        {
+            Debug.Log("Ave Markus!");
+            if (bossHit[i].collider.tag == "Boss")
+            {
+                hitBoss = true;
+            }
+            if (hitBoss)
+                this.Explode();
         }
     }
 
@@ -43,6 +62,11 @@ public class BombBehavior : MonoBehaviour {
 				foesHit [i].collider.gameObject.GetComponent<Foe> ().Damage (1);
                 playerStatus.boomPower++;
 			}
+            else if (foesHit[i].collider.tag == "Boss")
+            {
+                foesHit[i].collider.gameObject.GetComponent<BossBehavior>().dealDamage(1);
+                playerStatus.boomPower++;
+            }
 		}
 		playerStatus.bombsLeft++;
 

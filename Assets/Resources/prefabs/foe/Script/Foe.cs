@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Foe : MonoBehaviour {
 	public Character playerStatus;
-	public GameObject munition;
+    public GameObject munition;
 
 	public int maxLife;
 	public int life;
@@ -13,6 +13,7 @@ public class Foe : MonoBehaviour {
 
 	public bool isAttacking;
 	public bool isReceivingDamage;
+    public bool isChasing;
 
 	public int speed;
 	public int groundIndex = 0;
@@ -23,13 +24,11 @@ public class Foe : MonoBehaviour {
 	private SpriteRenderer ownRenderer;
 	public float verticalUpdateDistance = 0.5f;
 
-	private float attackDistance = 1.5f;
+	private float attackDistance = 2.5f;
 	public float time;
 
     public AudioSource audioSource;
     private Animator animator;
-
-
 
     // Use this for initialization
     void Start() {
@@ -41,7 +40,6 @@ public class Foe : MonoBehaviour {
 		this.life = maxLife;
         this.audioSource = this.GetComponent<AudioSource>();
         this.animator = this.GetComponent<Animator>();
-
 
     }
 
@@ -57,7 +55,7 @@ public class Foe : MonoBehaviour {
 	IEnumerator Delay ()
 	{
 		isAttacking = true;
-		yield return new WaitForSeconds(.6f);
+		yield return new WaitForSeconds(1f);
 		isAttacking = false;
 	}
 
@@ -68,15 +66,16 @@ public class Foe : MonoBehaviour {
 		isAttacking = false;
 	}
 
-
 	void BehaviorController () {
 		double horizDist = Mathf.Abs (this.transform.position.x - playerStatus.transform.position.x);
 		double verticalDist = Mathf.Abs (this.transform.position.y - playerStatus.transform.position.y);
 
 		if (enemyType == 0) {
 			if (horizDist > 5.0) {
+                this.isChasing = false;
 				Approach ();
 			} else {
+                this.isChasing = true;
 				ChasePlayer ();
 			}
 		} else {
@@ -152,25 +151,22 @@ public class Foe : MonoBehaviour {
 				Attack ();
 				StartCoroutine ("Delay");
 			} 
-			else if (horizDist <= attackDistance && verticalDist >= 0.2) 
+			else if (horizDist <= attackDistance && verticalDist > 0.2) 
 			{
-				if (verticalDist >= 0.2) 
+				if (this.transform.position.y > playerStatus.transform.position.y) 
 				{
-					if (this.transform.position.y > playerStatus.transform.position.y) 
-					{
-						this.MoveDown();
-					} 
-					else 
-					{
-						this.MoveUp();
-					}
+					this.MoveDown();
+				} 
+				else 
+				{
+					this.MoveUp();
 				}
 			}
 			else 
 			{
 				int op = (int) Random.Range (0, 100);
 				op %= 4;
-				if (op == 0 || (horizDist <= (attackDistance + 2))) 
+				if (op == 0) 
 				{
 					if (verticalDist >= 0.2) 
 					{
@@ -232,7 +228,6 @@ public class Foe : MonoBehaviour {
 	}
 		
 	public void Attack () {
-        this.animator.SetTR("death", true);
         playerStatus.takeDamage (1);
 	}
 
@@ -257,6 +252,7 @@ public class Foe : MonoBehaviour {
 	}
 
 	private void Die () {
+        playerStatus.foesFell++;
 		Destroy(this.gameObject);
 	}
 

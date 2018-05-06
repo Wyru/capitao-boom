@@ -10,6 +10,8 @@ public class Character : MonoBehaviour {
     public int maxBoomPower;
     public int boomPower;
 
+    public int foesFell;
+
     public int speed;
     public GameLoop gameLoop;
     public int groundIndex = 0;
