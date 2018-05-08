@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BossBehavior : MonoBehaviour {
     public Character player;
@@ -129,8 +130,10 @@ public class BossBehavior : MonoBehaviour {
             bossAnimator.SetTrigger("damage");
             this.currentLife -= dam;
             StartCoroutine("Flash");
-            if (this.currentLife <= 0)
-                Die();
+        }
+        if (this.currentLife <= 0)
+        {
+            Die();
         }
     }
 
@@ -139,8 +142,12 @@ public class BossBehavior : MonoBehaviour {
         bossAnimator.SetTrigger("death");
         Instantiate(bossBoom, this.transform.position, Quaternion.identity);
         player.foesFell++;
+        player.StartCoroutine("CallEndgame");
         Destroy(this.gameObject);
     }
+
+  
+
 
     public void MoveLeft()
     {
@@ -174,9 +181,9 @@ public class BossBehavior : MonoBehaviour {
 
     public void PlayBossVoice ()
     {
-        if (Random.value < .4)
+        if (Random.value < 0.4f)
         {
-            if (Random.value > .5)
+            if (Random.value > 0.5f)
                 player.audioSource.clip = voice_1;
             else
                 player.audioSource.clip = voice_2;

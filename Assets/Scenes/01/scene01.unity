@@ -951,6 +951,8 @@ MonoBehaviour:
   enemyC: {fileID: 0}
   instanceNo: 3
   spawnTime: 5
+  totalSpawn: 0
+  spawned: 0
 --- !u!212 &861540734
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1111,6 +1113,8 @@ MonoBehaviour:
   enemyC: {fileID: 0}
   instanceNo: 3
   spawnTime: 3
+  totalSpawn: 0
+  spawned: 0
 --- !u!212 &1005826191
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1313,7 +1317,7 @@ Prefab:
     - target: {fileID: 114138016337823242, guid: d0610ef2d9134024894fec05e42ee9fe,
         type: 2}
       propertyPath: speed
-      value: 18
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 114138016337823242, guid: d0610ef2d9134024894fec05e42ee9fe,
         type: 2}
@@ -1461,6 +1465,8 @@ MonoBehaviour:
   enemyC: {fileID: 0}
   instanceNo: 2
   spawnTime: 10
+  totalSpawn: 0
+  spawned: 0
 --- !u!212 &1321110202
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1802,6 +1808,8 @@ MonoBehaviour:
   enemyC: {fileID: 0}
   instanceNo: 1
   spawnTime: 7
+  totalSpawn: 0
+  spawned: 0
 --- !u!212 &1465661887
 SpriteRenderer:
   m_ObjectHideFlags: 0

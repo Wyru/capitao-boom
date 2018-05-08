@@ -14,8 +14,8 @@ public class EnemySpawn : MonoBehaviour {
 
 	public float spawnTime = 3f;
 
-	private int totalSpawn;
-	private int spawned;
+	public int totalSpawn;
+	public int spawned;
 
 	// Use this for initialization
 	void Start () {
@@ -25,10 +25,10 @@ public class EnemySpawn : MonoBehaviour {
 
 		switch (instanceNo) {
 		    case 1:
-			    totalSpawn = 20;
+			    totalSpawn = 10;
 			break;
 		    case 2:
-			    totalSpawn = 20;
+			    totalSpawn = 10;
 			break;
             case 3:
                 totalSpawn = 15;
@@ -53,6 +53,11 @@ public class EnemySpawn : MonoBehaviour {
 
     void Update()
     {
+        if (this.spawned >= this.totalSpawn)
+        {
+            Destroy (this.gameObject);
+        }
+
         if (player.canSpawnBoss == true && this.instanceNo < 3)
         {
             Destroy(this.gameObject);
@@ -71,7 +76,7 @@ public class EnemySpawn : MonoBehaviour {
             } else {  
 				Instantiate (enemyA, this.transform.position, Quaternion.identity); 
 			} 
-		} 
-
+		}
+        this.spawned++;
     }
 }

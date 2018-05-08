@@ -160,7 +160,7 @@ MonoBehaviour:
   isRunning: 0
   voice_1: {fileID: 8300000, guid: ee65e4091bf2b9f438865e58c8bc53d1, type: 3}
   voice_2: {fileID: 8300000, guid: 35bcb877946d39042b447875f5829f1d, type: 3}
-  bossBoom: {fileID: 0}
+  bossBoom: {fileID: 1520743726242916, guid: b7dffff406f9c31459d63bc43351613e, type: 2}
 --- !u!212 &212042904149130648
 SpriteRenderer:
   m_ObjectHideFlags: 1

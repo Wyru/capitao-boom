@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Character : MonoBehaviour {
     public int maxLife;
@@ -358,6 +359,13 @@ public class Character : MonoBehaviour {
             yield return new WaitForSeconds(1f);
         }
         powerUp = false;
+    }
+
+    IEnumerator CallEndgame()
+    {
+        yield return new WaitForSeconds(3f);
+        Debug.Log("Here");
+        SceneManager.LoadScene("Endgame", LoadSceneMode.Single);
     }
 
 }
