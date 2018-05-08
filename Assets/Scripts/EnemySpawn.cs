@@ -25,12 +25,15 @@ public class EnemySpawn : MonoBehaviour {
 
 		switch (instanceNo) {
 		    case 1:
-			    totalSpawn = 15;
+			    totalSpawn = 20;
 			break;
 		    case 2:
-			    totalSpawn = 15;
+			    totalSpawn = 20;
 			break;
             case 3:
+                totalSpawn = 15;
+            break;
+            case 4:
                 totalSpawn = 15;
             break;
             case 0:
@@ -50,21 +53,25 @@ public class EnemySpawn : MonoBehaviour {
 
     void Update()
     {
-        if (spawned >= totalSpawn)
+        if (player.canSpawnBoss == true && this.instanceNo < 3)
+        {
             Destroy(this.gameObject);
+        } 
+        else if (player.bossDead == true)
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     void Spawn () {
 		float distance = Mathf.Abs (player.transform.position.x - this.transform.position.x);
-		if (distance > 5.2f && distance < 25.0f && player.foesFell < 10) {
-            if ((++spawned % 7) == 0)
-            {
-                Instantiate (enemyC, this.transform.position, Quaternion.identity);
-            } else if ((++spawned % 4) == 0) {
-				Instantiate (enemyB, this.transform.position, Quaternion.identity); 
-			} else {
+        if (distance > 5.2f && distance < 25.0f) {
+            if ((++spawned % 3) == 0) {
+                Instantiate (enemyB, this.transform.position, Quaternion.identity);
+            } else {  
 				Instantiate (enemyA, this.transform.position, Quaternion.identity); 
-			}	
-		}
-	}
+			} 
+		} 
+
+    }
 }

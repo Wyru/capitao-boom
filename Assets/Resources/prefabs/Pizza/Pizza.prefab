@@ -20,8 +20,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4279637245360756}
   - component: {fileID: 212750392190769812}
-  - component: {fileID: 114521670545588030}
   - component: {fileID: 61391612837385590}
+  - component: {fileID: 114523303861779550}
   m_Layer: 0
   m_Name: Pizza
   m_TagString: Untagged
@@ -36,7 +36,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1258091013617220}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.18, y: -3.17, z: -1}
+  m_LocalPosition: {x: 1.9871948, y: -0.75426507, z: -1}
   m_LocalScale: {x: 0.18622094, y: 0.18622093, z: 0.18622093}
   m_Children: []
   m_Father: {fileID: 0}
@@ -54,20 +54,20 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.23345375}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 6, y: 5}
-    newSize: {x: 15, y: 15}
+    newSize: {x: 6, y: 5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 6, y: 5}
+  m_Size: {x: 6, y: 10.883236}
   m_EdgeRadius: 0
---- !u!114 &114521670545588030
+--- !u!114 &114523303861779550
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -75,7 +75,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1258091013617220}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dbc02b39b8938b9479e32ea00101ad01, type: 3}
+  m_Script: {fileID: 11500000, guid: a367683a896cc384987dd417b0dd327a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!212 &212750392190769812
@@ -113,12 +113,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 8b679d04941373a4689eb8b08734e20f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a3d8b18d57ee98c4294e278dacb6b001, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 15, y: 15}
+  m_Size: {x: 6, y: 5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

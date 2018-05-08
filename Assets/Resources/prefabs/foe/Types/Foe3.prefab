@@ -113,6 +113,9 @@ MonoBehaviour:
   verticalUpdateDistance: 0.5
   time: 0
   audioSource: {fileID: 0}
+  dead: 0
+  pizza: {fileID: 1258091013617220, guid: 88c32bad94bc1f941a1aca2f23bee8ce, type: 2}
+  dolly: {fileID: 1868070788801134, guid: 3a55dea6eb2372746aae162c47499989, type: 2}
 --- !u!212 &212747117685071300
 SpriteRenderer:
   m_ObjectHideFlags: 1

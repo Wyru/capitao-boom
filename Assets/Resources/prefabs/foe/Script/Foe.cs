@@ -237,6 +237,7 @@ public class Foe : MonoBehaviour {
 		
 	public void Attack () {
         this.animator.SetTrigger("attack");
+        playerStatus.PlayScratch();
         playerStatus.takeDamage (1);
 	}
 
@@ -244,7 +245,8 @@ public class Foe : MonoBehaviour {
         this.animator.SetTrigger("attack");
 		Rigidbody2D foeProjectile = munition.GetComponent<Rigidbody2D> ();
 		Rigidbody2D clone = Instantiate (foeProjectile, this.transform.position, Quaternion.identity) as Rigidbody2D;
-		if (this.transform.position.x < playerStatus.transform.position.x) {
+        playerStatus.PlayCensorSmoke();
+        if (this.transform.position.x < playerStatus.transform.position.x) {
 			clone.velocity = transform.TransformDirection (Vector2.left * -10);
 		} else {
             clone.transform.eulerAngles.Set(0,180,0);

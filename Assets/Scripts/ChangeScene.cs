@@ -11,6 +11,11 @@ public class ChangeScene : MonoBehaviour {
 	public void GoToScene01(){
 		SceneManager.LoadScene("scene01", LoadSceneMode.Single);
 	}
+    public void GoToMenu ()
+    {
+        SceneManager.LoadScene("Menu", LoadSceneMode.Single);
+
+    }
 	public void exitGame(){
 		Application.Quit();
 	}

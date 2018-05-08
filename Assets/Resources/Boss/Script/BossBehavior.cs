@@ -18,20 +18,27 @@ public class BossBehavior : MonoBehaviour {
     public bool isAttacking = false;
     public bool isRunning = false;
 
+    public AudioClip voice_1;
+    public AudioClip voice_2;
+
+    public GameObject bossBoom;
+
     private float distanceToPlayer = 0f;
 
     private Rigidbody2D bossBody;
     private BoxCollider2D bossCollider;
     private SpriteRenderer bossRendererer;
+    private Animator bossAnimator;
 
     // Use this for initialization
     void Start() {
         player = GameObject.FindWithTag("Player").GetComponent<Character>();
-        munition = Resources.Load("prefabs/Munition", typeof(GameObject)) as GameObject;
+        munition = Resources.Load("prefabs/MunitionBoss", typeof(GameObject)) as GameObject;
 
         bossBody = this.GetComponent<Rigidbody2D>();
         bossCollider = this.GetComponent<BoxCollider2D>();
         bossRendererer = this.GetComponent<SpriteRenderer>();
+        bossAnimator = this.GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -96,18 +103,17 @@ public class BossBehavior : MonoBehaviour {
     {
         if (!isAttacking)
         {
+            bossAnimator.SetTrigger ("attack");
             isAttacking = true;
             StartCoroutine("Cooldown");
-            Debug.Log("ATTACK!");
-
+            this.PlayBossVoice();
             Vector2 playerVector = player.GetComponent<Rigidbody2D>().transform.position;
             Vector2 bossVector = this.transform.position;
             Vector2 direction = playerVector - bossVector;
             GameObject newMunition;
-
+            player.PlayBossFires();
             newMunition = Instantiate(munition, pivot.transform.position, Quaternion.identity);
             newMunition.GetComponent<Rigidbody2D>().velocity = direction;
-            newMunition.transform.LookAt(player.transform);
         }
     }
 
@@ -120,6 +126,7 @@ public class BossBehavior : MonoBehaviour {
     {
         if (!isTakingDamage)
         {
+            bossAnimator.SetTrigger("damage");
             this.currentLife -= dam;
             StartCoroutine("Flash");
             if (this.currentLife <= 0)
@@ -129,6 +136,8 @@ public class BossBehavior : MonoBehaviour {
 
     void Die ()
     {
+        bossAnimator.SetTrigger("death");
+        Instantiate(bossBoom, this.transform.position, Quaternion.identity);
         player.foesFell++;
         Destroy(this.gameObject);
     }
@@ -161,6 +170,19 @@ public class BossBehavior : MonoBehaviour {
     {
         // this.animator.SetBool("walking", true);
         this.transform.Translate(movement * Time.deltaTime * this.hoverSpeed);
+    }
+
+    public void PlayBossVoice ()
+    {
+        if (Random.value < .4)
+        {
+            if (Random.value > .5)
+                player.audioSource.clip = voice_1;
+            else
+                player.audioSource.clip = voice_2;
+
+            player.audioSource.Play();
+        }
     }
 
     IEnumerator Flash()

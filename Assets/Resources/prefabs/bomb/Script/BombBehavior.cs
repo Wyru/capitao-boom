@@ -34,7 +34,6 @@ public class BombBehavior : MonoBehaviour {
         bossHit = Physics2D.CircleCastAll(this.transform.position, 0.1f, new Vector2(1, 1), 0.1f);
         for (int i = 0; i < bossHit.Length; ++i)
         {
-            Debug.Log("Ave Markus!");
             if (bossHit[i].collider.tag == "Boss")
             {
                 hitBoss = true;
@@ -56,7 +55,7 @@ public class BombBehavior : MonoBehaviour {
         //raycast nos inimigos ao redor que estão na mesma camada
         //chama a função de dano neles
         Instantiate(booom,this.transform.position, Quaternion.identity);
-		foesHit = Physics2D.CircleCastAll (this.transform.position, 1.0f, new Vector2(1,1), 1.0f);
+		foesHit = Physics2D.CircleCastAll (this.transform.position, 1.0f, new Vector2(1,2), 1.0f);
 		for (int i = 0; i < foesHit.Length; ++i) {
 			if (foesHit [i].collider.tag == "Foe") {
 				foesHit [i].collider.gameObject.GetComponent<Foe> ().Damage (1);

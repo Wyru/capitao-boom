@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4680071046245880}
   - component: {fileID: 212286403554959452}
   - component: {fileID: 61066358224486278}
-  - component: {fileID: 114878752917406074}
+  - component: {fileID: 114530896151551864}
   m_Layer: 0
   m_Name: dolly
   m_TagString: Untagged
@@ -36,7 +36,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1868070788801134}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.48, y: -3.18, z: 0}
+  m_LocalPosition: {x: 2.4295897, y: -0.9256474, z: 0}
   m_LocalScale: {x: 0.27773824, y: 0.27773824, z: 0.27773824}
   m_Children: []
   m_Father: {fileID: 0}
@@ -54,7 +54,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.4558074, y: -0.30929875}
+  m_Offset: {x: -0.4558074, y: 0.1603036}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -65,9 +65,9 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.5721477, y: 3.8604789}
+  m_Size: {x: 1.5721477, y: 6.427641}
   m_EdgeRadius: 0
---- !u!114 &114878752917406074
+--- !u!114 &114530896151551864
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -75,7 +75,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1868070788801134}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d7733a0081132247b5f9ec45328aeed, type: 3}
+  m_Script: {fileID: 11500000, guid: 816134b2ec5bed14c9dff2f80b18972b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!212 &212286403554959452
@@ -113,7 +113,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 1107aa2bbed3efd428f194102786e872, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c92ed1af90f4d7d40b789932bd75ca74, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

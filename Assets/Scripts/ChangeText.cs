@@ -6,14 +6,24 @@ using UnityEngine.SceneManagement;
 public class ChangeText : MonoBehaviour {
 	public Sprite[] sprites;
 	public int number;
+    public string currentScene;
+
 	public void change ()
 	{		
 		var myRenderer = GetComponent<SpriteRenderer> ();
+        currentScene = SceneManager.GetActiveScene().name;
 		if (sprites.Length > 0 && number < sprites.Length-1) {			
 			number++;
 			myRenderer.sprite = sprites [number];
 		} else if (number >= sprites.Length-1) {
-			SceneManager.LoadScene("scene01", LoadSceneMode.Single);
+            if (currentScene.Equals("intro"))
+            {
+                SceneManager.LoadScene("scene01", LoadSceneMode.Single);
+            } else
+            {
+                SceneManager.LoadScene("Menu", LoadSceneMode.Single);
+            }
+			
 		}
 	}
 	// Use this for initialization

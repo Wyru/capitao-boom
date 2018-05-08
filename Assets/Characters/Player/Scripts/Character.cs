@@ -7,6 +7,8 @@ public class Character : MonoBehaviour {
     public int maxLife;
     public int life;
 
+    public Camera cm;
+
     public int maxBoomPower;
     public int boomPower;
 
@@ -35,13 +37,14 @@ public class Character : MonoBehaviour {
 	public int maxBombs = 5;
 	public int bombsLeft;
 
-
-
     public bool charging = false;
     public bool verticalMoving;
 	public bool isTakingDamage;
 
+    public int bossActivator = 20;
 
+    public bool canSpawnBoss = false;
+    public bool bossDead = false;
 
     //sounds
     public AudioClip damage;
@@ -59,8 +62,15 @@ public class Character : MonoBehaviour {
     public AudioClip dolly;
     public AudioClip heal;
 
+    public AudioClip bossHit;
+    public AudioClip bossShot;
+
+    public AudioClip censorSmoke;
+    public AudioClip scratch;
+    public AudioClip foeCollapse;
 
     public AudioSource audioSource;
+    
 
     public bool powerUp = false;
 
@@ -85,6 +95,10 @@ public class Character : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
+        if (foesFell >= bossActivator)
+        {
+            canSpawnBoss = true;
+        }
     }
 
     void FixedUpdate() {
@@ -209,11 +223,7 @@ public class Character : MonoBehaviour {
             clone.GetComponent<UltimateBombBehavior>().playerStatus = this;
             clone.velocity = transform.TransformDirection((Vector2.right + (2 * Vector2.up)) * attackDistance);
             boomPower = 0;
-
-
         }
-
-
     }
 
 	public void takeDamage (int damage) {
@@ -235,8 +245,18 @@ public class Character : MonoBehaviour {
 	private void Die () {
         this.animator.SetBool("death", true);
         this.PlayDeathSound();
-        Destroy(this);
+        gameLoop.GetComponent<GameLoop>().gameOver.SetActive(true);
+        gameLoop.gameOverBool = true;
+        StartCoroutine("Afterlife");
+        
 	}
+
+    IEnumerator Afterlife ()
+    {
+        yield return new WaitForSeconds(3f);
+        gameLoop.canExitGame = true;
+        Destroy(this);
+    }
 
 	IEnumerator Flash ()
 	{
@@ -265,8 +285,7 @@ public class Character : MonoBehaviour {
     public void PlayThrowBombSound() {
         audioSource.clip = thrownSound;
         this.audioSource.Play();
-
-        if (Random.value <.4) {
+        if (Random.value <.4) { 
             if (Random.value > .5) 
                 audioSource.clip = trownBomps1;
             else
@@ -283,6 +302,36 @@ public class Character : MonoBehaviour {
 
     public void PlaySuperSound() {
         audioSource.clip = ultimateBomb;
+        this.audioSource.Play();
+    }
+
+    public void PlayBossHitEnergy()
+    {
+        audioSource.clip = bossHit;
+        this.audioSource.Play();
+    }
+
+    public void PlayBossFires()
+    {
+        audioSource.clip = bossShot;
+        this.audioSource.Play();
+    }
+
+    public void PlayCensorSmoke()
+    {
+        audioSource.clip = censorSmoke;
+        this.audioSource.Play();
+    }
+
+    public void PlayScratch()
+    {
+        audioSource.clip = scratch;
+        this.audioSource.Play();
+    }
+
+    public void PlayCollapse()
+    {
+        audioSource.clip = foeCollapse;
         this.audioSource.Play();
     }
 

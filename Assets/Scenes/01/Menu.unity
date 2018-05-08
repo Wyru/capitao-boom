@@ -301,7 +301,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 0489e7233d122db43b29cb8ec0c7662b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: dbb75d047d8d21a4b845645357655499, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -422,7 +422,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 84cf44d8b79e48d4e8c5ef26092c94a6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 33bdec22d2bdc8d46b6f934ac16800d4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -492,7 +492,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 4faec5800814c9f41bde4b4913a5ccd1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3ddc0ab172f3d004f8dcd352f25ecb81, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -515,7 +515,7 @@ Animator:
   m_GameObject: {fileID: 1286165765}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 18aaa311e3a448c4d8407c45bfddc7f0, type: 2}
+  m_Controller: {fileID: 9100000, guid: 5710be3b69054f441896b0a4a9fdd858, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -533,11 +533,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: d1a9b3fa51391cc479fb8da34579bd76, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 3db70cf6108910e41868793030c0502b, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -673,7 +673,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 930e022ff1fb4034e8e45f9dc8e9f97c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 035f5a754ae926c47be6b3721b725ae5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -733,7 +733,7 @@ MonoBehaviour:
   m_Script: {fileID: -619905303, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
+  m_FirstSelected: {fileID: 1168436032}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!4 &1633326977
@@ -855,6 +855,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 2145905928}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21e3f28ca9a565440ae760969012bca1, type: 3}
+  m_Script: {fileID: 11500000, guid: 35067c6073d31504c8ab889334ef7ee4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

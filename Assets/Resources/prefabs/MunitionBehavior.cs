@@ -25,6 +25,7 @@ public class MunitionBehavior : MonoBehaviour {
 		for (int i = 0; i < hit.Length; ++i) {
 			if (hit[i].collider.name == "Player") {
 				player.takeDamage (1);
+                player.PlayBossHitEnergy();
 				Destroy (this.gameObject);
 			}
 		}

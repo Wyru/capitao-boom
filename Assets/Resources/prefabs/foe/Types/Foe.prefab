@@ -38,7 +38,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1560400967354896}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.7811522, y: -2.6100001, z: 1}
+  m_LocalPosition: {x: 11.542269, y: -1.858557, z: 6.58}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children: []
   m_Father: {fileID: 0}
@@ -120,21 +120,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerStatus: {fileID: 0}
   munition: {fileID: 0}
-  maxLife: 2
-  life: 2
-  MoveSpeed: 4
+  maxLife: 1
+  life: 1
+  MoveSpeed: 3
   isAttacking: 0
   isReceivingDamage: 0
   isChasing: 0
-  speed: 4
+  speed: 3
   groundIndex: 0
   enemyType: 0
   verticalUpdateDistance: 0.5
   time: 0
   audioSource: {fileID: 0}
   dead: 0
-  pizza: {fileID: 1258091013617220, guid: f3f2ab56673fe7044ae5c19b2973bf93, type: 2}
-  dolly: {fileID: 1868070788801134, guid: a58ae7e4b0c40fc4d814d94d43ecd076, type: 2}
+  pizza: {fileID: 1258091013617220, guid: 88c32bad94bc1f941a1aca2f23bee8ce, type: 2}
+  dolly: {fileID: 1868070788801134, guid: 3a55dea6eb2372746aae162c47499989, type: 2}
 --- !u!212 &212737010464975590
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -169,8 +169,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: f36e28a6078f3c9459ccb2c9d5523da5, type: 3}
+  m_SortingOrder: 20
+  m_Sprite: {fileID: 21300000, guid: 15d9a7e26ca30fb4bb15f4b4be6d9357, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0

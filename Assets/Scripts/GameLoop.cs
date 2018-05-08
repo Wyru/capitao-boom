@@ -19,6 +19,8 @@ public class GameLoop : MonoBehaviour {
 
     public int hudLife;
 
+    public bool canExitGame = false;
+
     public GameObject ThrowPowerHUD;
     public RectTransform powerThrowRender;
 
@@ -38,16 +40,18 @@ public class GameLoop : MonoBehaviour {
     }
 
     void Update() {
-        InputHandler.HandleInput(player);
-        UpdateLifeHUD();
-        UpdateBombHUD();
-        UpdateThrowBombHUD();
-        UpdateBoomPowerHUD();
 
-        if (gameOverBool) {
-            if (Input.GetButtonDown("Fire 1")) {
-               // SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-            }
+        if (!gameOverBool)
+        {
+            InputHandler.HandleInput(player);
+            UpdateLifeHUD();
+            UpdateBombHUD();
+            UpdateThrowBombHUD();
+            UpdateBoomPowerHUD();
+        } else
+        {
+            if (canExitGame && Input.anyKey)
+                SceneManager.LoadScene("Menu");
         }
     }
 
