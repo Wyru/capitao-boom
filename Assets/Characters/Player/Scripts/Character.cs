@@ -7,6 +7,9 @@ public class Character : MonoBehaviour {
     public int maxLife;
     public int life;
 
+    public int maxBoomPower;
+    public int boomPower;
+
     public int speed;
     public GameLoop gameLoop;
     public int groundIndex = 0;
@@ -14,11 +17,12 @@ public class Character : MonoBehaviour {
     private Rigidbody2D RB2d;
     private BoxCollider2D BC2d;
     private Animator animator;
-
+	private SpriteRenderer ownRenderer;
 
     public float verticalUpdateDistance = 0.5f;
 
-
+    public float minAttackDistance;
+    public float attackIncrement;
     public float attackDistance;
     public float maxAttackDistance;
 
@@ -30,7 +34,28 @@ public class Character : MonoBehaviour {
 	public int bombsLeft;
 
 
-    public Text timer;
+
+    public bool charging = false;
+    public bool verticalMoving;
+	public bool isTakingDamage;
+
+
+
+    //sounds
+    public AudioClip damage;
+    public AudioClip death;
+
+    public AudioClip thrownSound;
+    public AudioClip trownBomps1;
+    public AudioClip trownBomps2;
+
+    public AudioClip randomQuote;
+
+    public AudioClip ultimateBomb;
+
+    public AudioSource audioSource;
+
+
 
     // Use this for initialization
     void Start() {
@@ -38,11 +63,15 @@ public class Character : MonoBehaviour {
         this.RB2d = this.GetComponent<Rigidbody2D>();
         this.animator = this.GetComponent<Animator>();
         this.BC2d = this.GetComponent<BoxCollider2D>();
+		this.ownRenderer = this.GetComponent<SpriteRenderer> ();
 
         this.transform.position = new Vector2(this.transform.position.x, gameLoop.groundLayers[this.groundIndex].position.y);
 
         this.life = maxLife;
-		this.bombsLeft = 5;
+        this.bombsLeft = this.maxBombs;
+
+		this.isTakingDamage = false;
+        this.audioSource = this.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -86,6 +115,7 @@ public class Character : MonoBehaviour {
     }
 
     IEnumerator VerticalMove(int dir) {
+        verticalMoving = true;
         this.animator.SetBool("walking", true);
 
         float distance = Mathf.Abs(this.transform.position.y - gameLoop.groundLayers[this.groundIndex].position.y);
@@ -95,6 +125,7 @@ public class Character : MonoBehaviour {
             if (dir == 8) this.transform.Translate(new Vector2(0, verticalUpdateDistance));
             yield return new WaitForSeconds(.001f);
         }
+        verticalMoving = false;
     }
 
     public void Move() {
@@ -106,26 +137,43 @@ public class Character : MonoBehaviour {
         this.animator.SetBool("walking", false);
     }
 
+
     public void BeginChargeAttack() {
+        this.charging = true;
         StartCoroutine("ChargingAttack");
+    }
+    public void BeginChargeUltimateAttack() {
+        if (boomPower >= maxBombs) {
+            this.charging = true;
+            StartCoroutine("ChargingAttack");
+        }
+        else
+            Debug.Log("sem energia");
+        
     }
 
     IEnumerator ChargingAttack() {
-        attackDistance = 0;
+        attackDistance = minAttackDistance;
         while (true) {
             if (attackDistance > maxAttackDistance) {
-                attackDistance = 0;
+                attackDistance = minAttackDistance;
             }
             else {
-                attackDistance += 1;
+                attackDistance += attackIncrement;
             }
             yield return new WaitForSeconds(.1f);
         }
     }
 
+
     public void Attack() {
+        this.charging = false;
+
         StopCoroutine("ChargingAttack");
-		if (bombsLeft > 0) {
+
+        PlayThrowBombSound();
+
+        if (bombsLeft > 0) {
 			this.animator.SetTrigger("attack");
 			Rigidbody2D projectile = bombPrefab.GetComponent<Rigidbody2D> ();
 			Rigidbody2D clone;
@@ -138,12 +186,93 @@ public class Character : MonoBehaviour {
     }
 
     public void Super() {
-        this.animator.SetTrigger("super");
+        if (boomPower >= maxBombs) {
+            PlaySuperSound();
+            this.charging = false;
+            StopCoroutine("ChargingAttack");
+            this.animator.SetTrigger("super");
+            Rigidbody2D projectile = superBombPrefab.GetComponent<Rigidbody2D>();
+            Rigidbody2D clone;
+            bombsLeft--;
+            clone = Instantiate(projectile, this.transform.position, Quaternion.identity) as Rigidbody2D;
+            clone.GetComponent<UltimateBombBehavior>().minY = this.transform.position.y - 1;
+            clone.GetComponent<UltimateBombBehavior>().playerStatus = this;
+            clone.velocity = transform.TransformDirection((Vector2.right + (2 * Vector2.up)) * attackDistance);
+            boomPower = 0;
+
+
+        }
+
+
     }
 
+	public void takeDamage (int damage) {
+        this.animator.SetTrigger("damage");
+        this.Damage (damage);
+	}
 
     private void Damage(int damage) {
-        this.life -= damage;
+		if (isTakingDamage == false && this.life > 0) {
+			isTakingDamage = true;
+			this.life -= damage;
+			StartCoroutine("Flash");
+		} 
+		if (this.life <= 0)
+			this.Die ();
     }
-}
 
+	private void Die () {
+        this.animator.SetBool("death", true);
+        this.PlayDeathSound();
+        Destroy(this);
+	}
+
+	IEnumerator Flash ()
+	{
+		bool toggle = true;
+		this.BC2d.enabled = false;
+		for (int i = 0; i < 10; ++i) {
+			yield return new WaitForSeconds(.1f);
+			if (toggle) {
+				this.ownRenderer.enabled = false;
+				toggle = false;
+			} else {
+				this.ownRenderer.enabled = true;
+				toggle = true;
+			}
+		}
+		this.BC2d.enabled = true;
+		isTakingDamage = false;
+	}
+
+
+    public void PlayHitSound() {
+        audioSource.clip = damage;
+        this.audioSource.Play();
+    }
+
+    public void PlayThrowBombSound() {
+        audioSource.clip = thrownSound;
+        this.audioSource.Play();
+
+        if (Random.value <.4) {
+            if (Random.value > .2) 
+                audioSource.clip = trownBomps1;
+            else
+                audioSource.clip = trownBomps2;
+
+            this.audioSource.Play();
+        }
+    }
+
+    public void PlayDeathSound() {
+        audioSource.clip = death;
+        this.audioSource.Play();
+    }
+
+    public void PlaySuperSound() {
+        audioSource.clip = ultimateBomb;
+        this.audioSource.Play();
+    }
+
+}
